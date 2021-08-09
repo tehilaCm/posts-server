@@ -4,6 +4,8 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+const PORT = process.env.PORT || 4000;
+
 const userRouter = require("./routes/user");
 const postRouter = require("./routes/post");
 
@@ -22,7 +24,7 @@ const connectionParams = {
 mongoose
   .connect(process.env.DB_CONNECTION, connectionParams)
   .then(() => {
-    app.listen(4000, () => console.log("App is up and running on port 4000"));
+    app.listen(PORT, () => console.log("App is up and running on port 4000"));
   })
   .catch((err) => {
     console.log(err);
