@@ -22,9 +22,7 @@ const connectionParams = {
 mongoose
   .connect(process.env.DB_CONNECTION, connectionParams)
   .then(() => {
-    app.listen(process.env.PORT || 4000, () =>
-      console.log("App is up and running on port 4000")
-    );
+    console.log("connected to DB");
   })
   .catch((err) => {
     console.log(err);
@@ -34,3 +32,7 @@ mongoose.set("useFindAndModify", false);
 
 app.use("/user", userRouter);
 app.use("/post", postRouter);
+
+app.listen(process.env.PORT || 4000, () =>
+  console.log("App is up and running on port 4000")
+);
