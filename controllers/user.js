@@ -73,6 +73,25 @@ module.exports = {
     }
   },
 
+  unsavePost: async (req, res) => {
+    const { email, post } = req.body;
+
+    try {
+      const user = await User.findOne({ email });
+      if (!user) return res.status(400).json({ message: "User not found" });
+
+      await User.findOneAndUpdate(
+        { email },
+        {
+          $pull: { searches: post },
+        }
+      );
+      res.status(200).json({ message: "Post was saved" });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+
   getSearches: async (req, res) => {
     const { email } = req.params;
     try {
