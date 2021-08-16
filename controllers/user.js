@@ -24,10 +24,7 @@ module.exports = {
           {
             email,
           },
-          process.env.JWT_KEY,
-          {
-            expiresIn: "1h",
-          }
+          process.env.JWT_KEY
         );
 
         res.status(200).json({ message: "User created!", token, email });
@@ -44,8 +41,7 @@ module.exports = {
         {
           email,
         },
-        process.env.JWT_KEY,
-        { expiresIn: "1h" }
+        process.env.JWT_KEY
       );
 
       return res.status(200).json({ message: "Auth succeeded", token, email });

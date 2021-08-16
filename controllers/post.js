@@ -22,7 +22,21 @@ module.exports = {
       const user = await User.findOne({ email });
       if (!user) return res.status(404).json({ message: "User not found" });
 
-      const newPost = new Post(req.body);
+      const currentdate = new Date();
+      const date =
+        currentdate.getDate() +
+        "/" +
+        (currentdate.getMonth() + 1) +
+        "/" +
+        currentdate.getFullYear();
+
+      const time = currentdate.getHours() + ":" + currentdate.getMinutes();
+
+      const newPost = new Post({
+        ...req.body,
+        dateCreated: date,
+        timeCreated: time,
+      });
       await newPost.save();
 
       await User.findOneAndUpdate({ email }, { $push: { posts: newPost._id } });
